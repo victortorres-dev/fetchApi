@@ -24,6 +24,7 @@ function cargarTxt() {
 }
 
 //Manipulando el error: Codifo/funcion que hace uso del valor(error)
+// ->   
 function useError(e) {
     console.log(e)
     document.getElementById('error').innerHTML = `Definición del error: ${e.message}`;
@@ -52,3 +53,26 @@ function cargarJson() {
     })
 }
 
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FetchAPI: Consumiendo una REST api
+
+//Cargar datos en el boton "apiBTN"
+
+document.getElementById('apiBTN').addEventListener('click', cargarApi);
+
+function cargarApi() {
+    fetch('https://picsum.photos/list')
+        .then(function(datajsonApi) {
+            return datajsonApi.json();
+        })
+        .then(function (datajsonApiprint){
+            let html = '';
+            datajsonApiprint.forEach(function(imagen) {
+                html += `<li>
+                                <a target="_blank" href="${imagen.post_url}">Ver Imagen</a>
+                                ${imagen.author}
+                         </li>`                
+            }); 
+            document.getElementById('resultado').innerHTML = html;
+        })
+}
