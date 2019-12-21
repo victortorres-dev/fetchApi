@@ -1,10 +1,13 @@
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FetchAPI: Cargando datos con formato txt
+
 //Cargar datos en el boton "txtBtn"
 document.getElementById('txtBtn').addEventListener('click', cargarTxt)
 
 function cargarTxt() {
     fetch('datos.txt')
     .then(function(data) {      //Como quieres los datos
-        return dataa.text();
+        return data.text();
     })
     .then(function(printtext) { //Ahora manipulas los datos
         console.log(printtext);
@@ -25,3 +28,27 @@ function useError(e) {
     console.log(e)
     document.getElementById('error').innerHTML = `Definición del error: ${e.message}`;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//FetchAPI: Cargando datos con formato JSON
+
+//Cargar datos en el boton "txtBtn"
+document.getElementById('jsonBtn').addEventListener('click', cargarJson);
+
+function cargarJson() {
+    fetch('empleados.json')
+    .then(function(datajson){
+        return datajson.json();
+    })
+    .then(function(jsondata) {
+        let html = '';
+        jsondata.forEach(function(empleado) {
+            html += `<li>${empleado.nombre}, ${empleado.puesto}</li>`            
+        });   
+        document.getElementById('resultado').innerHTML = html;     
+    })
+    .catch(function(err) {
+        document.getElementById('error').innerHTML = `Definición del error: ${err.message}`;
+    })
+}
+
